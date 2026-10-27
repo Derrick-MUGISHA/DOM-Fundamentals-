@@ -1,4 +1,4 @@
-// element selectors in HTML 
+// element selectors in HTML
 
 import { fetchData } from "./api.js";
 
@@ -9,7 +9,6 @@ import { fetchData } from "./api.js";
 // // 2. getting Element by id
 
 // let para = document.getElementById('para');
-
 
 // // 3 .Query selectors  it picks the first element that matches the
 // //  selector in a node list (in HTML document)
@@ -23,8 +22,7 @@ import { fetchData } from "./api.js";
 
 // let allTage = document.querySelectorAll('h1');
 // let allClassName = document.querySelectorAll('.title');
-// let allIdName = document.querySelectorAll('#para'); 
-
+// let allIdName = document.querySelectorAll('#para');
 
 // // 5. getting Element by tag name
 
@@ -39,11 +37,9 @@ import { fetchData } from "./api.js";
 
 // let htmlCollection = document.forms[0].elements;
 
+// // editing the content of the selected elements
 
-
-// // editing the content of the selected elements 
-
-// // innerHTML property 
+// // innerHTML property
 
 // title[0].innerHTML = 'A Login Form';
 
@@ -55,7 +51,6 @@ import { fetchData } from "./api.js";
 // paragraph[0].innerHTML = paragraph[0].innerHTML.toUpperCase();
 
 // // textContent property
-
 
 // // creating a new element and adding it to the DOM
 
@@ -71,29 +66,23 @@ import { fetchData } from "./api.js";
 
 // document.body.appendChild(newElement);
 
-// // removing an element from the DOM 
+// // removing an element from the DOM
 
 // let removeElement = document.getElementById('form');
 // // removeElement.remove();
 
+// selecting an element in html
 
+const products = document.querySelector("#products");
 
-// selecting an element in html 
-
-const products = document.querySelector('#products');
-
-const element = document.createElement('section');
+const element = document.createElement("section");
 
 products.appendChild(element);
 
+function displayProducts(productsData) {
+  element.innerHTML = "";
 
-
-function displayProducts(productsData) {  
-    
-    element.innerHTML = '';
-
-    productsData.forEach(product => {
-    
+  productsData.forEach((product) => {
     element.innerHTML += `
     <div class="card" style=" display: flex; flex-direction: row; gap: 20px; padding: 20px; border: 2px solid #ccc; border-radius: 10px; margin: 20px; shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <div class="image" style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px; @media (min-width: 768px) { margin-bottom: 10px; } @media (min-width: 300px) { margin-bottom: 10px; }">
@@ -110,32 +99,27 @@ function displayProducts(productsData) {
     </div>
     </div>
     `;
-    })
-
-    
+  });
 }
 
-
-
 async function getProducts() {
-    let productsData = await fetchData();
-    let localStorageData = localStorage.getItem('products');
-    if (!productsData) {
-        element.innerHTML = '<p class="error" style="color: red; font-weight: bold; text-align: center; justify-content: center; font-size: 20px; margin-top: 20px;">Error fetching products. Please try again later.</p>';
-        return;
-    }
+  let productsData = await fetchData();
+  let localStorageData = localStorage.getItem("products");
+  if (!productsData) {
+    element.innerHTML =
+      '<p class="error" style="color: red; font-weight: bold; text-align: center; justify-content: center; font-size: 20px; margin-top: 20px;">Error fetching products. Please try again later.</p>';
+    return;
+  }
 
-    if (productsData.length === 0) {
-        element.innerHTML = '<p class="error" style="color: red; font-weight: bold; text-align: center; justify-content: center; font-size: 20px; margin-top: 20px;">No products found.</p>';
-        return;
-    }
+  if (productsData.length === 0) {
+    element.innerHTML =
+      '<p class="error" style="color: red; font-weight: bold; text-align: center; justify-content: center; font-size: 20px; margin-top: 20px;">No products found.</p>';
+    return;
+  }
 
-    console.log(localStorageData);
+  console.log(localStorageData);
 
-    displayProducts(productsData);    
-    
+  displayProducts(productsData);
 }
 
 getProducts();
-
-
